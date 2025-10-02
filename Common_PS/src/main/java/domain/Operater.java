@@ -22,6 +22,9 @@ public class Operater implements ApstraktniDomenskiObjekat{
     private String prezime;
     private String email;
 
+    public Operater() {
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -34,6 +37,14 @@ public class Operater implements ApstraktniDomenskiObjekat{
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
+    }
+    public Operater(long id){
+        this.id = id;
+        korisnickoIme="";
+        lozinka="";
+        ime="";
+        prezime="";
+        email="";
     }
 
     public Operater(String korisnickoIme, String ime, String prezime, String email) {

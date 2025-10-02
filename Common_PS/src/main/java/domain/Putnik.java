@@ -27,6 +27,17 @@ public class Putnik implements ApstraktniDomenskiObjekat{
         this.email = email;
         this.kategorija = kategorija;
     }
+
+    public Putnik(long id) {
+        this.id = id;
+        ime="";
+        prezime="";
+        email="";
+        kategorija=null;
+    }
+
+    public Putnik() {
+    }
     
     public long getId() {
         return id;
@@ -102,7 +113,7 @@ public class Putnik implements ApstraktniDomenskiObjekat{
     public String getJoinKlauzulu() {
         return "";
     }
-
+    
     @Override
     public String getNazivKolonePoIndex(int index) {
         String[] kolone = {"id","ime","prezime","email","idKategorija"};
