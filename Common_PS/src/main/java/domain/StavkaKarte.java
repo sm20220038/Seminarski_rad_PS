@@ -6,6 +6,7 @@ package domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,20 +18,53 @@ import java.util.List;
  */
 public class StavkaKarte implements ApstraktniDomenskiObjekat{
     private long rb;
+    private Karta karta;
     private int kolicina;
+    private double cenaVoznje;
+    private double cenaStavke;
     private Date datumIzdavanja;
     private LocalTime vremeUlaska;
     private LocalTime vremeIzlaska;
-    private double popust;
-    private double pdv;
-    private double cenaPrePDVA;
     private LocalTime trajanjeVoznje;
-    private double cenaStavke;
-    private String komentar;
-    private Karta karta;
-    private Sediste sediste;
     private String valuta;
+    private String komentar;
+    private Linija linija;
 
+    public StavkaKarte() {
+    }
+
+    public StavkaKarte(long rb, Karta karta, int kolicina, double cenaVoznje, double cenaStavke, Date datumIzdavanja, LocalTime vremeUlaska, LocalTime vremeIzlaska, LocalTime trajanjeVoznje, String valuta, String komentar, Linija linija) {
+        this.rb = rb;
+        this.karta = karta;
+        this.kolicina = kolicina;
+        this.cenaVoznje = cenaVoznje;
+        this.cenaStavke = cenaStavke;
+        this.datumIzdavanja = datumIzdavanja;
+        this.vremeUlaska = vremeUlaska;
+        this.vremeIzlaska = vremeIzlaska;
+        this.trajanjeVoznje = trajanjeVoznje;
+        this.valuta = valuta;
+        this.komentar = komentar;
+        this.linija = linija;
+    }
+
+    public StavkaKarte(long rb, Karta karta, int kolicina, double cenaVoznje, Date datumIzdavanja, LocalTime vremeUlaska, LocalTime vremeIzlaska, String valuta, String komentar, Linija linija) {
+        this.rb = rb;
+        this.karta = karta;
+        this.kolicina = kolicina;
+        this.cenaVoznje = cenaVoznje;
+        this.cenaStavke = cenaVoznje*kolicina;
+        this.datumIzdavanja = datumIzdavanja;
+        this.vremeUlaska = vremeUlaska;
+        this.vremeIzlaska = vremeIzlaska;
+        long seconds = Duration.between(vremeUlaska, vremeIzlaska).getSeconds();
+        this.trajanjeVoznje = LocalTime.ofSecondOfDay(seconds);
+        this.valuta = valuta;
+        this.komentar = komentar;
+        this.linija = linija;
+    }
+
+    
     public long getRb() {
         return rb;
     }
@@ -39,12 +73,36 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
         this.rb = rb;
     }
 
+    public Karta getKarta() {
+        return karta;
+    }
+
+    public void setKarta(Karta karta) {
+        this.karta = karta;
+    }
+
     public int getKolicina() {
         return kolicina;
     }
 
     public void setKolicina(int kolicina) {
         this.kolicina = kolicina;
+    }
+
+    public double getCenaVoznje() {
+        return cenaVoznje;
+    }
+
+    public void setCenaVoznje(double cenaVoznje) {
+        this.cenaVoznje = cenaVoznje;
+    }
+
+    public double getCenaStavke() {
+        return cenaStavke;
+    }
+
+    public void setCenaStavke(double cenaStavke) {
+        this.cenaStavke = cenaStavke;
     }
 
     public Date getDatumIzdavanja() {
@@ -71,52 +129,12 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
         this.vremeIzlaska = vremeIzlaska;
     }
 
-    public double getPopust() {
-        return popust;
+    public LocalTime getTrajanjeVoznje() {
+        return trajanjeVoznje;
     }
 
-    public void setPopust(double popust) {
-        this.popust = popust;
-    }
-
-    public double getPdv() {
-        return pdv;
-    }
-
-    public void setPdv(double pdv) {
-        this.pdv = pdv;
-    }
-
-    public double getCenaPrePDVA() {
-        return cenaPrePDVA;
-    }
-
-    public void setCenaPrePDVA(double cenaPrePDVA) {
-        this.cenaPrePDVA = cenaPrePDVA;
-    }
-
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public void setKomentar(String komentar) {
-        this.komentar = komentar;
-    }
-
-    public Karta getKarta() {
-        return karta;
-    }
-
-    public void setKarta(Karta karta) {
-        this.karta = karta;
-    }
-
-    public Sediste getSediste() {
-        return sediste;
-    }
-
-    public void setSediste(Sediste sediste) {
-        this.sediste = sediste;
+    public void setTrajanjeVoznje(LocalTime trajanjeVoznje) {
+        this.trajanjeVoznje = trajanjeVoznje;
     }
 
     public String getValuta() {
@@ -127,34 +145,22 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
         this.valuta = valuta;
     }
 
-    public LocalTime getTrajanjeVoznje() {
-        return trajanjeVoznje;
+    public String getKomentar() {
+        return komentar;
     }
 
-    public double getCenaStavke() {
-        return cenaStavke;
-    }
-
-    public StavkaKarte() {
-    }
-
-    public StavkaKarte(long rb, int kolicina, Date datumIzdavanja, LocalTime vremeUlaska, LocalTime vremeIzlaska, double popust, double pdv, double cenaPrePDVA, LocalTime trajanjeVoznje, double cenaStavke, String komentar, Karta karta, Sediste sediste, String valuta) {
-        this.rb = rb;
-        this.kolicina = kolicina;
-        this.datumIzdavanja = datumIzdavanja;
-        this.vremeUlaska = vremeUlaska;
-        this.vremeIzlaska = vremeIzlaska;
-        this.popust = popust;
-        this.pdv = pdv;
-        this.cenaPrePDVA = cenaPrePDVA;
-        this.trajanjeVoznje = trajanjeVoznje;
-        this.cenaStavke = cenaStavke;
+    public void setKomentar(String komentar) {
         this.komentar = komentar;
-        this.karta = karta;
-        this.sediste = sediste;
-        this.valuta = valuta;
     }
 
+    public Linija getLinija() {
+        return linija;
+    }
+
+    public void setLinija(Linija linija) {
+        this.linija = linija;
+    }
+    
     @Override
     public String getNazivTabele() {
         return "stavkakarte";
@@ -162,12 +168,16 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
 
     @Override
     public String getKoloneZaInsert() {
-        return "kolicina, datumIzdavanja, vremeUlaska, vremeIzlaska, popust, pdv, cenaPrePDVA, komentar, idKarta, idSediste, valuta";
+        return "idKarta, kolicina, cenaVoznje, cenaStavke, datumIzdavanja, vremeUlaska, vremeIzlaska, trajanjeVoznje, valuta, komentar, idLinija";
     }
 
     @Override
     public String getVrednostiZaInsert() {
-        return kolicina + ", '" + datumIzdavanja + "', '" + vremeUlaska + "', '" + vremeIzlaska + "', " + popust + ", " + pdv + ", " + cenaPrePDVA + ", '" + komentar + "', " + karta.getId() + ", " + sediste.getId() + ", '" + valuta + "'";
+        return karta.getId() + ", " + kolicina + ", " + cenaVoznje 
+                + ", " + cenaStavke + ", '" + datumIzdavanja 
+                + "', '" + vremeUlaska + "', '" + vremeIzlaska 
+                + "', '" + trajanjeVoznje + "', " + valuta 
+                + ", '" + komentar + "', " + linija.getId();
     }
 
     @Override
@@ -182,9 +192,11 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
 
     @Override
     public String getVrednostiZaUpdate() {
-        return "kolicina=" + kolicina + ", datumIzdavanja='" + datumIzdavanja + "', vremeUlaska='" + vremeUlaska + "', vremeIzlaska='" + vremeIzlaska + 
-                "', popust=" + popust + ", pdv=" + pdv + ", cenaPrePDVA=" + cenaPrePDVA + ", komentar='" + komentar + "', idKarta=" + karta.getId() + 
-                ", idSediste=" + sediste.getId() + ", valuta='" + valuta + "'";
+        return "idKarta="+karta.getId() + ", kolicina=" + kolicina + ", cenaVoznje=" + cenaVoznje 
+                + ", cenaStavke=" + cenaStavke + ", datumIzdavanja='" + datumIzdavanja 
+                + "', vremeUlaska='" + vremeUlaska + "', vremeIzlaska='" + vremeIzlaska 
+                + "', trajanjeVoznje='" + trajanjeVoznje + "', valuta=" + valuta 
+                + ", komentar='" + komentar + "', idLinija=" + linija.getId();
     }
 
     @Override
@@ -197,42 +209,39 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
                 ".id = " + 
                 this.getNazivTabele() +
                 ".idKarta JOIN " +
-                sediste.getNazivTabele() +
+                linija.getNazivTabele() +
                 " ON " +
-                sediste.getNazivTabele() +
+                linija.getNazivTabele() +
                 ".id=" +
                 this.getNazivTabele() +
-                ".idSediste";
+                ".idLinija";
     }
 
     @Override
     public String getNazivKolonePoIndex(int index) {
-        String[] kolone = {"rb","kolicina","datumIzdavanja", "vremeUlaska", "vremeIzlaska", "popust", "pdv", "cenaPrePDVA", "trajanjeVoznje", "cenaStavke", "komentar","idKarta","idSediste","valuta"};
+        String[] kolone = {"rb","idKarta","kolicina","cenaVoznje","cenaStavke","datumIzdavanja","vremeUlaska","vremeIzlaska","trajanjeVoznje","valuta","komentar","idLinija"};
         return kolone[index];
     }
     
     public void inicijalizacija(){
         if(this.karta == null) karta = new Karta();
-        if(sediste == null) sediste = new Sediste();
+        if(linija == null) linija = new Linija();
     }
     
     @Override
     public ApstraktniDomenskiObjekat getNoviObjekat(ResultSet rs) throws SQLException {
         return new StavkaKarte(
                 rs.getLong(this.getNazivTabele() + ".rb"),
+                new Karta(rs.getLong(this.getNazivTabele() + ".idKarta")),
                 rs.getInt(this.getNazivTabele() + ".kolicina"),
+                rs.getDouble(this.getNazivTabele() + ".cenaVoznje"),
                 rs.getDate(this.getNazivTabele() + ".datumIzdavanja"),
                 rs.getTime("stavkakarte.vremeUlaska").toLocalTime(),
                 rs.getTime("stavkakarte.vremeIzlaska").toLocalTime(),
-                rs.getDouble(this.getNazivTabele() + ".popust"),
-                rs.getDouble(this.getNazivTabele() + ".pdv"),
-                rs.getDouble(this.getNazivTabele() + ".cenaPrePDVA"),
-                (rs.getTime("stavkakarte.trajanjeVoznje")).toLocalTime(),
-                rs.getDouble(this.getNazivTabele() + ".cenaStavke"),
+                rs.getString(this.getNazivTabele() + ".valuta"),
                 rs.getString(this.getNazivTabele() + ".komentar"),
-                new Karta(rs.getLong(this.getNazivTabele() + ".idKarta")),
-                new Sediste(rs.getLong(this.getNazivTabele() + ".idSediste")),
-                rs.getString(this.getNazivTabele() + ".valuta"));
+                new Linija(rs.getLong(this.getNazivTabele() + ".idLinija"))
+        );
     }
 
     @Override
