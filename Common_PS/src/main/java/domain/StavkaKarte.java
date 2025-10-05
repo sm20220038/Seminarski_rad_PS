@@ -176,8 +176,8 @@ public class StavkaKarte implements ApstraktniDomenskiObjekat{
         return karta.getId() + ", " + kolicina + ", " + cenaVoznje 
                 + ", " + cenaStavke + ", '" + datumIzdavanja 
                 + "', '" + vremeUlaska + "', '" + vremeIzlaska 
-                + "', '" + trajanjeVoznje + "', " + valuta 
-                + ", '" + komentar + "', " + linija.getId();
+                + "', '" + trajanjeVoznje + "', '" + valuta 
+                + "', '" + komentar + "', " + linija.getId();
     }
 
     @Override

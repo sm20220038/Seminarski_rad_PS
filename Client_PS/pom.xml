@@ -11,4 +11,12 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.ps_metro.client_ps.Client_PS</exec.mainClass>
     </properties>
+    <dependencies>
+    <!-- Common -->
+        <dependency>
+            <groupId>com.ps_metro</groupId>
+            <artifactId>Common_PS</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -21,7 +21,7 @@ public class Karta implements ApstraktniDomenskiObjekat{
     private Operater operater;
     private Putnik putnik;
     private Date datumIzdavanja;
-
+    private List<StavkaKarte> stavkeKarte;
     public long getId() {
         return id;
     }
@@ -70,7 +70,16 @@ public class Karta implements ApstraktniDomenskiObjekat{
         this.datumIzdavanja = datumIzdavanja;
     }
 
+    public List<StavkaKarte> getStavkeKarte() {
+        return stavkeKarte;
+    }
+
+    public void setStavkeKarte(List<StavkaKarte> stavkeKarte) {
+        this.stavkeKarte = stavkeKarte;
+    }
+    
     public Karta() {
+        stavkeKarte = new ArrayList<>();
     }
     public Karta(long id){
         this.id = id;
