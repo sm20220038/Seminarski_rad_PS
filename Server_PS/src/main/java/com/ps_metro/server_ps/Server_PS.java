@@ -4,6 +4,8 @@
 
 package com.ps_metro.server_ps;
 
+import forme.FormaServer;
+
 /**
  *
  * @author stefa
@@ -11,6 +13,7 @@ package com.ps_metro.server_ps;
 public class Server_PS {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        FormaServer fs = new FormaServer();
+        fs.setVisible(true);
     }
 }

@@ -4,17 +4,23 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+import kontroler.ServerKontroler;
+
 /**
  *
  * @author stefa
  */
 public class FormaServer extends javax.swing.JFrame {
 
+    private ServerKontroler serverKontroler;
     /**
      * Creates new form FormaServer
      */
     public FormaServer() {
+        serverKontroler = new ServerKontroler();
         initComponents();
+        btnZaustavi.setEnabled(false);
     }
 
     /**
@@ -24,57 +30,103 @@ public class FormaServer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        btnStart = new javax.swing.JButton();
+        btnZaustavi = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuKonfig = new javax.swing.JMenu();
+        menuItemKonfig = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnStart.setText("Pokreni server");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
+
+        btnZaustavi.setText("Zaustavi server");
+        btnZaustavi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZaustaviActionPerformed(evt);
+            }
+        });
+
+        menuKonfig.setText("Konfiguracija");
+
+        menuItemKonfig.setText("Konfiguracija");
+        menuItemKonfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemKonfigActionPerformed(evt);
+            }
+        });
+        menuKonfig.add(menuItemKonfig);
+
+        jMenuBar1.add(menuKonfig);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addComponent(btnZaustavi, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(294, 294, 294)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnZaustavi, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(332, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormaServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormaServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormaServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormaServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            serverKontroler.pokreniServer();
+            JOptionPane.showMessageDialog(this, "Server je uspesno pokrenut", "Pokrenut server", JOptionPane.INFORMATION_MESSAGE); 
+            btnZaustavi.setEnabled(true);
+            btnStart.setEnabled(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Server nije pokrenut", "Greska pri pokretanju servera", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Greska je ova: " +e.getMessage());
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnStartActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormaServer().setVisible(true);
-            }
-        });
-    }
+    private void btnZaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZaustaviActionPerformed
+        serverKontroler.zaustaviServer();
+        JOptionPane.showMessageDialog(this, "Server je zaustavljen.", "Kraj", JOptionPane.INFORMATION_MESSAGE);
+        btnStart.setEnabled(true);
+        btnZaustavi.setEnabled(false);
+    }//GEN-LAST:event_btnZaustaviActionPerformed
+
+    private void menuItemKonfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKonfigActionPerformed
+        FormaKonfiguracija fk = new FormaKonfiguracija();
+        fk.setVisible(true);
+
+
+    }//GEN-LAST:event_menuItemKonfigActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnZaustavi;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem menuItemKonfig;
+    private javax.swing.JMenu menuKonfig;
     // End of variables declaration//GEN-END:variables
 }

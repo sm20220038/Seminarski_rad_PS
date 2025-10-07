@@ -1,0 +1,17 @@
+domain\Linija.class
+domain\StavkaKarte.class
+com\ps_metro\common_ps\Common_PS.class
+domain\ApstraktniDomenskiObjekat.class
+domain\OperaterKvalifikacija.class
+domain\Operater.class
+communication\Posaljilac.class
+domain\Karta.class
+domain\Kvalifikacija.class
+communication\TipZahteva.class
+communication\Odgovor.class
+communication\StatusOdgovor.class
+communication\Primalac.class
+communication\Zahtev.class
+domain\Kategorija.class
+domain\VrstaKategorije.class
+domain\Putnik.class

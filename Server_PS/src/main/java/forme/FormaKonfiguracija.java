@@ -4,17 +4,24 @@
  */
 package forme;
 
+import javax.swing.JOptionPane;
+import konfiguracija.Config;
+
 /**
  *
  * @author stefa
  */
 public class FormaKonfiguracija extends javax.swing.JFrame {
-
+    Config config;
     /**
      * Creates new form FormaKonfiguracija
      */
     public FormaKonfiguracija() {
+        config = Config.getInstance();
         initComponents();
+        txtUrl.setText(config.getUrl());
+        txtKorisnickoIme.setText(config.getUsername());
+        txtSifra.setText(config.getPassword());
     }
 
     /**
@@ -24,57 +31,106 @@ public class FormaKonfiguracija extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblUrl = new javax.swing.JLabel();
+        txtUrl = new javax.swing.JTextField();
+        lblUsername = new javax.swing.JLabel();
+        txtKorisnickoIme = new javax.swing.JTextField();
+        lblSifra = new javax.swing.JLabel();
+        txtSifra = new javax.swing.JTextField();
+        lblNaziv = new javax.swing.JLabel();
+        btnSacuvaj = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lblUrl.setText("URL:");
+
+        lblUsername.setText("Korisničko ime:");
+
+        lblSifra.setText("Šifra:");
+
+        lblNaziv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNaziv.setText("Konfigurišite bazu podataka");
+
+        btnSacuvaj.setText("Sačuvaj");
+        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSacuvajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSacuvaj)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSifra, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNaziv, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(txtUrl)
+                            .addComponent(txtKorisnickoIme)
+                            .addComponent(txtSifra))))
+                .addGap(0, 345, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblNaziv)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUrl)
+                    .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKorisnickoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsername))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSifra)
+                    .addComponent(txtSifra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(105, 105, 105)
+                .addComponent(btnSacuvaj)
+                .addContainerGap(233, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
+        if(txtUrl.getText().isBlank()){
+            JOptionPane.showMessageDialog(this, "Niste popunili url, probajte ponovo.", "Greska", JOptionPane.ERROR_MESSAGE);
+        } else{
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfiguracija.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfiguracija.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfiguracija.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormaKonfiguracija.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            String url = txtUrl.getText();
+            url = url.replace("\\", "");
+            config.setUrl(url);
+            config.setUsername(txtKorisnickoIme.getText());
+            config.setPassword(txtSifra.getText());
+            config.save();
+            
+            JOptionPane.showMessageDialog(this, "Konfiguracija sacuvana", "Useph", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Greska pri cuvanju: " + e.getMessage());
+        }}
+    }//GEN-LAST:event_btnSacuvajActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormaKonfiguracija().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JLabel lblNaziv;
+    private javax.swing.JLabel lblSifra;
+    private javax.swing.JLabel lblUrl;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JTextField txtKorisnickoIme;
+    private javax.swing.JTextField txtSifra;
+    private javax.swing.JTextField txtUrl;
     // End of variables declaration//GEN-END:variables
 }
