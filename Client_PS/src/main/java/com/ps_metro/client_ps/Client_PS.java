@@ -4,6 +4,8 @@
 
 package com.ps_metro.client_ps;
 
+import forme.LoginForma;
+
 /**
  *
  * @author stefa
@@ -11,6 +13,7 @@ package com.ps_metro.client_ps;
 public class Client_PS {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        LoginForma lf = new LoginForma();
+        lf.setVisible(true);
     }
 }
