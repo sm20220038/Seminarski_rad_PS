@@ -33,6 +33,12 @@ public class Linija implements ApstraktniDomenskiObjekat{
         this.cenaVoznje = cenaVoznje;
     }
 
+    Linija(long idLinija, String pocetnaStanica, String krajnjaStanica) {
+        id = idLinija;
+        this.pocetnaStanica = pocetnaStanica;
+        this.krajnjaStanica = krajnjaStanica;
+    }
+
     public long getId() {
         return id;
     }
@@ -98,6 +104,11 @@ public class Linija implements ApstraktniDomenskiObjekat{
     @Override
     public String getJoinKlauzulu() {
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return "" + pocetnaStanica + "-" + krajnjaStanica;
     }
 
     @Override

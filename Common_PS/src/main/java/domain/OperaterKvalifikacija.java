@@ -7,7 +7,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -19,6 +19,12 @@ public class OperaterKvalifikacija implements ApstraktniDomenskiObjekat{
     private Kvalifikacija kvalifikacija;
     private Date datumIzdavanja;
 
+    public OperaterKvalifikacija(Operater operater, Kvalifikacija kvalifikacija, Date datumIzdavanja) {
+        this.operater = operater;
+        this.kvalifikacija = kvalifikacija;
+        this.datumIzdavanja = datumIzdavanja;
+    }
+    
     public Operater getOperater() {
         return operater;
     }
@@ -46,11 +52,7 @@ public class OperaterKvalifikacija implements ApstraktniDomenskiObjekat{
     public OperaterKvalifikacija() {
     }
 
-    public OperaterKvalifikacija(Operater operater, Kvalifikacija kvalifikacija, Date datumIzdavanja) {
-        this.operater = operater;
-        this.kvalifikacija = kvalifikacija;
-        this.datumIzdavanja = datumIzdavanja;
-    }
+    
 
     @Override
     public String getNazivTabele() {

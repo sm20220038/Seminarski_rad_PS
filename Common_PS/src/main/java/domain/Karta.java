@@ -7,7 +7,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -22,6 +22,39 @@ public class Karta implements ApstraktniDomenskiObjekat{
     private Putnik putnik;
     private Date datumIzdavanja;
     private List<StavkaKarte> stavkeKarte;
+    
+    public Karta() {
+        stavkeKarte = new ArrayList<>();
+    }
+    
+    public Karta(long id){
+        this.id = id;
+        ukupnaCena = 0;
+        valuta = "";
+        operater = null;
+        putnik = null;
+        datumIzdavanja = null;
+    }
+    public Karta(long id, double ukupnaCena, String valuta, Operater operater, Putnik putnik, Date datumIzdavanja) {
+        this.id = id;
+        this.ukupnaCena = ukupnaCena;
+        this.valuta = valuta;
+        this.operater = operater;
+        this.putnik = putnik;
+        this.datumIzdavanja = datumIzdavanja;
+    }
+
+    public Karta(long id, double ukupnaCena, String valuta, Operater operater, Putnik putnik, Date datumIzdavanja, List<StavkaKarte> stavkeKarte) {
+        this.id = id;
+        this.ukupnaCena = ukupnaCena;
+        this.valuta = valuta;
+        this.operater = operater;
+        this.putnik = putnik;
+        this.datumIzdavanja = datumIzdavanja;
+        this.stavkeKarte = stavkeKarte;
+    }
+    
+    
     public long getId() {
         return id;
     }
@@ -78,28 +111,9 @@ public class Karta implements ApstraktniDomenskiObjekat{
         this.stavkeKarte = stavkeKarte;
     }
     
-    public Karta() {
-        stavkeKarte = new ArrayList<>();
-    }
-    public Karta(long id){
-        this.id = id;
-        ukupnaCena = 0;
-        valuta = "";
-        operater = null;
-        putnik = null;
-        datumIzdavanja = null;
-    }
-    public Karta(long id, double ukupnaCena, String valuta, Operater operater, Putnik putnik, Date datumIzdavanja) {
-        this.id = id;
-        this.ukupnaCena = ukupnaCena;
-        this.valuta = valuta;
-        this.operater = operater;
-        this.putnik = putnik;
-        this.datumIzdavanja = datumIzdavanja;
-    }
     
     
-
+    
     @Override
     public String getNazivTabele() {
         return "karta";
@@ -160,14 +174,23 @@ public class Karta implements ApstraktniDomenskiObjekat{
 
     @Override
     public ApstraktniDomenskiObjekat getNoviObjekat(ResultSet rs) throws SQLException {
-        return new Karta(
-            rs.getLong(this.getNazivTabele()+".id"),
-            rs.getDouble(this.getNazivTabele() + ".ukupnaCena"),
-            rs.getString(this.getNazivTabele() + ".valuta"),
-            new Operater(rs.getLong(this.getNazivTabele() + ".idOperater")),
-            new Putnik(rs.getLong(this.getNazivTabele() + ".idPutnik")),
-            rs.getDate(this.getNazivTabele()+".datumIzdavanja")
-        );
+        long idKarta = rs.getLong("karta.id");
+        double ukupnaCena = rs.getDouble("karta.ukupnaCena");
+        String valuta = rs.getString("karta.valuta");
+        Date datumIzdavanja = rs.getDate("karta.datumIzdavanja");
+        if (rs.wasNull()) datumIzdavanja = null;
+
+        long idOperater = rs.getLong("operater.id");
+        String imeOperater = rs.getString("operater.ime");
+        String prezimeOperater = rs.getString("operater.prezime");
+        Operater operater = new Operater(idOperater, imeOperater, prezimeOperater);
+
+        long idPutnik = rs.getLong("putnik.id");
+        String imePutnik = rs.getString("putnik.ime");
+        String prezimePutnik = rs.getString("putnik.prezime");
+        Putnik putnik = new Putnik(idPutnik, imePutnik, prezimePutnik);
+
+        return new Karta(idKarta, ukupnaCena, valuta, operater, putnik, datumIzdavanja);
     }
 
     @Override

@@ -6,8 +6,8 @@ domain\OperaterKvalifikacija.class
 domain\Operater.class
 communication\Posaljilac.class
 domain\Karta.class
+communication\Operacija.class
 domain\Kvalifikacija.class
-communication\TipZahteva.class
 communication\Odgovor.class
 communication\StatusOdgovor.class
 communication\Primalac.class

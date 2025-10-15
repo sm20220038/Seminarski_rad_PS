@@ -36,6 +36,41 @@ public class Putnik implements ApstraktniDomenskiObjekat{
         kategorija=null;
     }
 
+    public Putnik(long idPutnik, String imePutnik, String prezimePutnik) {
+        id = idPutnik;
+        ime = imePutnik;
+        prezime = prezimePutnik;
+        email = "";
+        kategorija = null;
+    }
+
+    @Override
+    public String toString() {
+        return ime + " " + prezime;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Putnik other = (Putnik) obj;
+        return this.id == other.id;
+    }
+    
     public Putnik() {
     }
     

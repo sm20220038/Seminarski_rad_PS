@@ -17,7 +17,17 @@ public class Kvalifikacija implements ApstraktniDomenskiObjekat{
     private long id;
     private String naziv;
     private String institucija;
-
+    
+    public Kvalifikacija(long id){
+        this.id = id;
+        naziv = "";
+        institucija = "";
+    }
+    public Kvalifikacija(long id, String naziv, String institucija) {
+        this.id = id;
+        this.naziv = naziv;
+        this.institucija = institucija;
+    }
     public long getId() {
         return id;
     }
@@ -44,16 +54,7 @@ public class Kvalifikacija implements ApstraktniDomenskiObjekat{
 
     public Kvalifikacija() {
     }
-    public Kvalifikacija(long id){
-        this.id = id;
-        naziv = "";
-        institucija = "";
-    }
-    public Kvalifikacija(long id, String naziv, String institucija) {
-        this.id = id;
-        this.naziv = naziv;
-        this.institucija = institucija;
-    }
+    
 
     @Override
     public String getNazivTabele() {

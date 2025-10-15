@@ -47,7 +47,35 @@ public class Kategorija implements ApstraktniDomenskiObjekat{
     public void setOpis(String opis) {
         this.opis = opis;
     }
-
+    
+    public VrstaKategorije getVrstaById(long id){
+        VrstaKategorije vk;
+        switch ((int)id) {
+            case 1:
+                vk = VrstaKategorije.BIZNIS;
+                break;
+            case 2:
+                vk = VrstaKategorije.EKONOMICNA;
+                break;
+            case 3:
+                vk = VrstaKategorije.PRVI_RAZRED;
+                break;
+            default:
+                vk = null; 
+        }
+        return vk;
+    }
+    
+    public long getIdByVrsta(VrstaKategorije vrstaKategorije){
+        if(vrstaKategorije.equals(VrstaKategorije.EKONOMICNA)){
+            return 2;
+        } else if(vrstaKategorije.equals(VrstaKategorije.BIZNIS)){
+            return 1;
+        } else if(vrstaKategorije.equals(VrstaKategorije.PRVI_RAZRED)){
+            return 3;
+        }
+        return -1;
+    }
     @Override
     public String getNazivTabele() {
         return "kategorija";
