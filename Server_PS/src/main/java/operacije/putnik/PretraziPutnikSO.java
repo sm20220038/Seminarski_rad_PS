@@ -17,7 +17,7 @@ import operacije.OpstaSistemskaOperacija;
  */
 public class PretraziPutnikSO extends OpstaSistemskaOperacija {
     private DBBroker broker = new DBBroker();
-    List<ApstraktniDomenskiObjekat> rezultat = new LinkedList<>();
+    List<Putnik> rezultat = new LinkedList<>();
     @Override
     public boolean validiraj(ApstraktniDomenskiObjekat ado) throws Exception {
         if(ado == null || !(ado instanceof Putnik)){
@@ -31,18 +31,21 @@ public class PretraziPutnikSO extends OpstaSistemskaOperacija {
         try {
             Putnik p = (Putnik) ado;
             String whereUslov = kreirajKriterijum(p);
-            rezultat = broker.getAll(p, whereUslov);
+            List<ApstraktniDomenskiObjekat> rez = broker.getAll(p, whereUslov);
+            for (ApstraktniDomenskiObjekat a : rez) {
+                rezultat.add((Putnik) a);
+            }
             return true;
         } catch (Exception e) {
-            throw new Exception("Sistem ne moze da pronadje putnike po zadatim kriterijumima");
+            throw new Exception("Sistem ne moze da pronadje putnike po zadatim kriterijumima: " + e.getMessage());
         }
         
     }
-    public List<ApstraktniDomenskiObjekat> getRezultatPretrage(){
+    public List<Putnik> getRezultatPretrage(){
         return rezultat;
     }
     private String kreirajKriterijum(Putnik p) {
-        StringBuilder sb = new StringBuilder("1=1"); 
+        StringBuilder sb = new StringBuilder("WHERE 1=1"); 
 
         if (p.getId() > 0) {
             sb.append(" AND id = ").append(p.getId());
@@ -56,7 +59,9 @@ public class PretraziPutnikSO extends OpstaSistemskaOperacija {
         if (p.getEmail() != null && !p.getEmail().trim().isEmpty()) {
             sb.append(" AND email LIKE '%").append(p.getEmail().trim()).append("%'");
         }
-
+        if (p.getKategorija() != null && p.getKategorija().getId() > 0) {
+            sb.append(" AND idKategorija = ").append(p.getKategorija().getId());
+        }
         return sb.toString();
     }
 }

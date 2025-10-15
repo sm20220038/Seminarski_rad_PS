@@ -21,6 +21,11 @@ public class KreirajPutnikSO extends OpstaSistemskaOperacija {
         if(ado == null || !(ado instanceof Putnik)){
             throw new Exception("Sistem ne moze da kreira osobu");
         }
+        Putnik p = (Putnik) ado;
+
+        if (p.getKategorija() == null) {
+            throw new Exception("Kategorija putnika mora biti izabrana.");
+        } 
         return true;
     }
 

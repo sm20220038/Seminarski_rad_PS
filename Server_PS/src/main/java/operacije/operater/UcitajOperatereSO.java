@@ -2,38 +2,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package operacije.putnik;
+package operacije.operater;
 
 import db.DBBroker;
 import domain.ApstraktniDomenskiObjekat;
-import domain.Putnik;
+import domain.Operater;
+import java.util.LinkedList;
+import java.util.List;
 import operacije.OpstaSistemskaOperacija;
 
 /**
  *
  * @author stefa
  */
-public class ObrisiPutnikSO extends OpstaSistemskaOperacija {
+public class UcitajOperatereSO extends OpstaSistemskaOperacija {
     private DBBroker broker = new DBBroker();
+    private List<Operater> operateri = new LinkedList<>();
     @Override
     public boolean validiraj(ApstraktniDomenskiObjekat ado) throws Exception {
-        if(ado==null || !(ado instanceof Putnik)) {
-            throw new Exception("Sistem ne moze da nadje putnika");
-        }
         return true;
     }
 
     @Override
     public boolean izvrsiOperaciju(ApstraktniDomenskiObjekat ado) throws Exception {
-        try {
-            int promenjeniRedovi = broker.obrisi((Putnik) ado, null);
-            if(promenjeniRedovi == 0){
-                throw new Exception("Sistem ne moze da obrise putnika");
-            }
-        } catch (Exception e) {
-            throw new Exception("Sistem ne moze da obrise putnika");
-        } 
+        List<ApstraktniDomenskiObjekat> operateriA = broker.getAll(new Operater(), null);
+        for (ApstraktniDomenskiObjekat apstraktniDomenskiObjekat : operateriA) {
+            operateri.add((Operater) apstraktniDomenskiObjekat);
+        }
         return true;
     }
     
+    public List<Operater> getOperateri(){
+        return operateri;
+    }
 }

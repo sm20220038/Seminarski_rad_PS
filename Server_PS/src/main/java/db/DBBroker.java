@@ -25,13 +25,12 @@ public class DBBroker {
     public DBBroker() {
         try {
             conn = DBConnection.getConnection();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
+
     public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat ado, String uslov) throws Exception{
         List<ApstraktniDomenskiObjekat> lista = new LinkedList<>();
         String upit = "SELECT * FROM " + ado.getNazivTabele() + " ";
@@ -43,7 +42,7 @@ public class DBBroker {
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(upit);
         lista = ado.getListuIzSeta(rs);
-        
+
         st.close();
         rs.close();
         
@@ -70,7 +69,6 @@ public class DBBroker {
     }
     
     public void promeni(ApstraktniDomenskiObjekat noviAdo, ApstraktniDomenskiObjekat stariAdo) throws Exception{
-        
         String upit = "UPDATE " + noviAdo.getNazivTabele() + " SET "
                 + noviAdo.getVrednostiZaUpdate() + " WHERE ";
         if(stariAdo == null){
@@ -83,10 +81,18 @@ public class DBBroker {
         st.close();
     }
     
-    public int obrisi(ApstraktniDomenskiObjekat ado) throws Exception{
-        String upit = "DELETE FROM " + ado.getNazivTabele() +
-                " WHERE " + ado.getWhereUslov();
-        
+    public int obrisi(ApstraktniDomenskiObjekat ado, String dodatniUslov) throws Exception {
+        String upit = "DELETE FROM " + ado.getNazivTabele();
+
+        if (dodatniUslov != null && !dodatniUslov.trim().isEmpty()) {
+            if (!dodatniUslov.toLowerCase().contains("where")) {
+                throw new Exception("DELETE upit mora sadržati WHERE uslov!");
+            }
+            upit += " " + dodatniUslov;
+        } else {
+            upit += " WHERE " + ado.getWhereUslov();
+        }
+        System.out.println("Izvrsavam DELETE upit: " + upit);
         Statement st = conn.createStatement();
         int promenjeniRedovi = st.executeUpdate(upit);
         st.close();

@@ -22,6 +22,7 @@ public class FormaKonfiguracija extends javax.swing.JFrame {
         txtUrl.setText(config.getUrl());
         txtKorisnickoIme.setText(config.getUsername());
         txtSifra.setText(config.getPassword());
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -41,6 +42,7 @@ public class FormaKonfiguracija extends javax.swing.JFrame {
         btnSacuvaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Konfigurisite bazu");
 
         lblUrl.setText("URL:");
 

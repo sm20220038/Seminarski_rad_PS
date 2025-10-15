@@ -4,7 +4,9 @@
  */
 package operacije.karta;
 
+import db.DBBroker;
 import domain.ApstraktniDomenskiObjekat;
+import domain.Karta;
 import operacije.OpstaSistemskaOperacija;
 
 /**
@@ -12,15 +14,24 @@ import operacije.OpstaSistemskaOperacija;
  * @author stefa
  */
 public class KreirajKartuSO extends OpstaSistemskaOperacija {
-
+    Karta k;
+    DBBroker broker = new DBBroker();
     @Override
-    public boolean validiraj(ApstraktniDomenskiObjekat ado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean validiraj(ApstraktniDomenskiObjekat ado) throws Exception{
+        if(ado == null || !(ado instanceof Karta)) {
+            throw new Exception("Sistem ne moze da kreira kartu");
+        }
+        return true;
     }
 
     @Override
-    public boolean izvrsiOperaciju(ApstraktniDomenskiObjekat ado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean izvrsiOperaciju(ApstraktniDomenskiObjekat ado) throws Exception{
+        k = (Karta) ado;
+        long id = broker.dodaj(k);
+        k.setId(id);
+        return true;
     }
-    
+    public Karta getKarta(){
+        return k;
+    }
 }

@@ -7,6 +7,7 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import konfiguracija.Config;
 
 /**
  *
@@ -20,7 +21,8 @@ public class DBConnection {
     
     public static Connection getConnection() throws SQLException{
         if(conn == null){
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/prodajakarata", "root", "");
+            conn = DriverManager.getConnection(Config.getInstance().getUrl(), Config.getInstance().getUsername(), Config.getInstance().getPassword());
+            conn.setAutoCommit(Config.getInstance().isAutoCommit());
         }
         return conn;
     }

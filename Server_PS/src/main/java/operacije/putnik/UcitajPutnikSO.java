@@ -7,33 +7,33 @@ package operacije.putnik;
 import db.DBBroker;
 import domain.ApstraktniDomenskiObjekat;
 import domain.Putnik;
+import java.util.LinkedList;
+import java.util.List;
 import operacije.OpstaSistemskaOperacija;
 
 /**
  *
  * @author stefa
  */
-public class ObrisiPutnikSO extends OpstaSistemskaOperacija {
+public class UcitajPutnikSO extends OpstaSistemskaOperacija {
     private DBBroker broker = new DBBroker();
+    List<Putnik> putnici = new LinkedList<>();
     @Override
     public boolean validiraj(ApstraktniDomenskiObjekat ado) throws Exception {
-        if(ado==null || !(ado instanceof Putnik)) {
-            throw new Exception("Sistem ne moze da nadje putnika");
-        }
         return true;
     }
 
     @Override
     public boolean izvrsiOperaciju(ApstraktniDomenskiObjekat ado) throws Exception {
-        try {
-            int promenjeniRedovi = broker.obrisi((Putnik) ado, null);
-            if(promenjeniRedovi == 0){
-                throw new Exception("Sistem ne moze da obrise putnika");
-            }
-        } catch (Exception e) {
-            throw new Exception("Sistem ne moze da obrise putnika");
-        } 
+        String uslov = " JOIN kategorija ON putnik.idKategorija = kategorija.idKategorije";
+        List<ApstraktniDomenskiObjekat> putniciA = broker.getAll(new Putnik(), uslov);
+        for (ApstraktniDomenskiObjekat apstraktniDomenskiObjekat : putniciA) {
+            putnici.add((Putnik) apstraktniDomenskiObjekat);
+        }
         return true;
+    }
+    public List<Putnik> getPutnici(){
+        return putnici;
     }
     
 }

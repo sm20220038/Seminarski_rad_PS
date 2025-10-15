@@ -21,6 +21,7 @@ public class FormaServer extends javax.swing.JFrame {
         serverKontroler = new ServerKontroler();
         initComponents();
         btnZaustavi.setEnabled(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,6 +34,7 @@ public class FormaServer extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         btnStart = new javax.swing.JButton();
         btnZaustavi = new javax.swing.JButton();
+        lblServer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuKonfig = new javax.swing.JMenu();
         menuItemKonfig = new javax.swing.JMenuItem();
@@ -40,6 +42,7 @@ public class FormaServer extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Serverska forma");
 
         btnStart.setText("Pokreni server");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +57,8 @@ public class FormaServer extends javax.swing.JFrame {
                 btnZaustaviActionPerformed(evt);
             }
         });
+
+        lblServer.setText("Server ne radi");
 
         menuKonfig.setText("Konfiguracija");
 
@@ -79,11 +84,17 @@ public class FormaServer extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                 .addComponent(btnZaustavi, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(127, 127, 127))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(423, 423, 423)
+                .addComponent(lblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(294, 294, 294)
+                .addGap(125, 125, 125)
+                .addComponent(lblServer)
+                .addGap(153, 153, 153)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnZaustavi, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -99,6 +110,7 @@ public class FormaServer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Server je uspesno pokrenut", "Pokrenut server", JOptionPane.INFORMATION_MESSAGE); 
             btnZaustavi.setEnabled(true);
             btnStart.setEnabled(false);
+            lblServer.setText("Server radi");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Server nije pokrenut", "Greska pri pokretanju servera", JOptionPane.ERROR_MESSAGE);
             System.out.println("Greska je ova: " +e.getMessage());
@@ -110,6 +122,7 @@ public class FormaServer extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Server je zaustavljen.", "Kraj", JOptionPane.INFORMATION_MESSAGE);
         btnStart.setEnabled(true);
         btnZaustavi.setEnabled(false);
+        lblServer.setText("Server ne radi");
     }//GEN-LAST:event_btnZaustaviActionPerformed
 
     private void menuItemKonfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemKonfigActionPerformed
@@ -126,6 +139,7 @@ public class FormaServer extends javax.swing.JFrame {
     private javax.swing.JButton btnZaustavi;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblServer;
     private javax.swing.JMenuItem menuItemKonfig;
     private javax.swing.JMenu menuKonfig;
     // End of variables declaration//GEN-END:variables
